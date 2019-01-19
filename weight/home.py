@@ -90,12 +90,8 @@ def edit_weight(id):
         return redirect(url_for('get_weight'))
     else:
         with SessionScope() as session:
-            try:
-                weight_data = get_weight_data(session, id)
-                form.date.data = weight_data.date
-                form.old_weight.data = weight_data.old_weight
-                form.new_weight.data = weight_data.new_weight
-                return render_template('weight/add_weight.html', form=form, change='edit')
-            except Exception as e:
-                logging.info(str(e))
-                return str(e)
+            weight_data = get_weight_data(session, id)
+            form.date.data = weight_data.date
+            form.old_weight.data = weight_data.old_weight
+            form.new_weight.data = weight_data.new_weight
+            return render_template('weight/add_weight.html', form=form, change='edit')
