@@ -73,7 +73,7 @@ def add_weight():
     if form.validate_on_submit():
         with SessionScope() as session:
             add_weight_data(request.form, session)
-        return redirect(url_for('get_weight'))
+        return redirect(url_for('get_weight', _external=True))
     else:
         logger.info('in else')
         form.date.data = date.today()
@@ -87,7 +87,7 @@ def edit_weight(id):
     if form.validate_on_submit():
         with SessionScope() as session:
             edit_weight_data(request.form, session, id)
-        return redirect(url_for('get_weight'))
+        return redirect(url_for('get_weight', _external=True))
     else:
         with SessionScope() as session:
             weight_data = get_weight_data(session, id)
