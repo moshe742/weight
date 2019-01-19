@@ -1,0 +1,44 @@
+{% extends 'weight/base.html' %}
+{% block content %}
+<h2 class="text-capitalize">
+    {{ change }} weight data
+</h2>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    {% for error in form.date.errors %}
+    <span style="color: #cc2f2e; display: block;">{{ error }}</span>
+    {% endfor %}
+    <div class="form-row form-group">
+        <div class="col-md-1">
+            <label for="{{ form.date.name }}" class="col-form-label">{{ form.date.label.text }}</label>
+        </div>
+        <div class="col-md-3">
+            <input id="{{ form.date.name }}" class="form-control form-control-lg" type="date"  name="{{ form.date.name }}" value="{{ form.date.data }}">
+        </div>
+    </div>
+    {% for error in form.old_weight.errors %}
+    <span style="color: #cc2f2e; display: block;">{{ error }}</span>
+    {% endfor %}
+    <div class="form-row form-group">
+        <div class="col-md-1">
+            <label for="{{ form.old_weight.name }}" class="col-form-label">{{ form.old_weight.label.text }}</label>
+        </div>
+        <div class="col-md-3">
+            <input id="{{ form.old_weight.name }}" class="form-control form-control-lg" type="number" step="0.1"  name="{{ form.old_weight.name }}" value="{{ form.old_weight.data }}">
+        </div>
+    </div>
+    {% for error in form.new_weight.errors %}
+    <span style="color: #cc2f2e; display: block;">{{ error }}</span>
+    {% endfor %}
+    <div class="form-row form-group">
+        <div class="col-md-1">
+            <label for="{{ form.new_weight.name }}" class="col-form-label">{{ form.new_weight.label.text }}</label>
+        </div>
+        <div class="col-md-3">
+            <input id="{{ form.new_weight.name }}" class="form-control form-control-lg" type="number" min="80" max="145" step="0.1" name="{{ form.new_weight.name }}" value="{{ form.new_weight.data }}">
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">submit</button>
+    <button class="btn btn-warning" type="reset">reset</button>
+</form>
+{% endblock %}

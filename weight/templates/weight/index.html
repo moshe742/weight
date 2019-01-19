@@ -1,0 +1,62 @@
+{% extends 'weight/base.html' %}
+{% block header %}
+<h2 class="text-capitalize">weight data</h2>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-2 text-center text-capitalize">
+        week day
+    </div>
+    <div class="col-sm-1 text-center text-capitalize">
+        date
+    </div>
+    <div class="col-sm-2 text-center text-capitalize">
+        old weight
+    </div>
+    <div class="col-sm-2 text-center text-capitalize">
+        new weight
+    </div>
+</div>
+{% for item in weights %}
+<div class="row">
+    <div class="col-sm-2 text-center{% if item.date.weekday() == 4 %} font-weight-bold{% endif %}">
+        {{ item.date.strftime('%A') }}
+    </div>
+    <div class="col-sm-1 text-center{% if item.date.weekday() == 4 %} font-weight-bold{% endif %}">
+        {{ item.date }}
+    </div>
+    <div class="col-sm-2 text-center{% if item.date.weekday() == 4 %} font-weight-bold{% endif %}">
+        {{ item.old_weight }}
+    </div>
+    <div class="col-sm-2 text-center{% if item.date.weekday() == 4 %} font-weight-bold{% endif %}">
+        {{ item.new_weight }}
+    </div>
+    <div class="col-sm-1 text-center">
+        <a href="{{ url_for('edit_weight', id=item.id) }}">edit</a>
+    </div>
+</div>
+{% endfor %}
+<div id="app">
+<!--  <button onclick="runB();">Run B </button>-->
+  <!--<button onclick="runC();">Run C </button>-->
+</div>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            old_weight: {},
+            new_weight: {}
+        },
+        created () {
+            fetch('/get_weight_data')
+                .then(response => response.json())
+                .then(json => {
+                    this.old_weight = json.old_weight;
+                    this.new_weight = json.new_weight;
+                    var data = [this.old_weight, this.new_weight];
+                    Plotly.newPlot('app', data);
+                })
+        }
+    });
+</script>
+{% endblock %}
