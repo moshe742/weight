@@ -35,7 +35,7 @@ def get_weight():
 
 
 @app.route('/get_weight_data')
-def get_weight_data():
+def get_data_weight():
     logger.info('start get weight data')
     with SessionScope() as session:
         weights = get_weights_data(session)
