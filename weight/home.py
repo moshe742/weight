@@ -13,7 +13,7 @@ from weight.db.queries import (
     get_weight_data,
 )
 
-logging.basicConfig(filename='/home/moshe/weight.log', level=logging.DEBUG)
+logging.basicConfig(filename='weight.log', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
