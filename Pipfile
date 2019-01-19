@@ -13,5 +13,3 @@ psycopg2 = "*"
 alembic = "*"
 flask-wtf = "*"
 
-[requires]
-python_version = "3.7"
