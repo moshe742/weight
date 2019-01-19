@@ -98,3 +98,4 @@ def edit_weight(id):
                 return render_template('weight/add_weight.html', form=form, change='edit')
             except Exception as e:
                 logging.info(str(e))
+                return str(e)
