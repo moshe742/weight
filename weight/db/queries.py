@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from sqlalchemy import desc
+
 from weight.db import SessionScope
 from weight.db.models import WeightData
 
@@ -9,7 +11,7 @@ def get_weight_data(session, id):
 
 
 def get_weights_data(session):
-    return session.query(WeightData).order_by(WeightData.date).all()
+    return session.query(WeightData).order_by(desc(WeightData.date)).all()
 
 
 def add_weight_data(data, session):
