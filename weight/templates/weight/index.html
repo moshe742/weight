@@ -3,6 +3,7 @@
 <h2 class="text-capitalize">weight data</h2>
 {% endblock %}
 {% block content %}
+<div id="app"></div>
 <div class="row">
     <div class="col-sm-2 text-center text-capitalize">
         week day
@@ -36,10 +37,6 @@
     </div>
 </div>
 {% endfor %}
-<div id="app">
-<!--  <button onclick="runB();">Run B </button>-->
-  <!--<button onclick="runC();">Run C </button>-->
-</div>
 <script>
     const app = new Vue({
         el: '#app',
