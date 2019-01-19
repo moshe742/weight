@@ -1,3 +1,4 @@
+import logging
 from datetime import date
 from flask import request, render_template, jsonify, redirect, url_for
 
@@ -12,9 +13,12 @@ from weight.db.queries import (
     get_weight_data,
 )
 
+logger = logging.getLogger(__name__)
+
 
 @app.route('/', methods=['GET', 'POST'])
 def get_weight():
+    logger.info('start get weight')
     with SessionScope() as session:
         weights = get_weights_data(session)
         dates = []
@@ -24,13 +28,14 @@ def get_weight():
             dates.append(item.date.strftime('%Y-%m-%d'))
             weight_data_old.append(item.old_weight)
             weight_data_new.append(item.new_weight)
-
+        logger.info('return render template')
         return render_template('weight/index.html', weights=weights, weight_data_old=weight_data_old,
                                dates=dates, weight_data_new=weight_data_new)
 
 
 @app.route('/get_weight_data')
 def get_weight_data():
+    logger.info('start get weight data')
     with SessionScope() as session:
         weights = get_weights_data(session)
         dates = []
@@ -53,6 +58,7 @@ def get_weight_data():
             'mode': 'lines+markers',
             'name': 'new weight',
         }
+        logger.info('return jsonify')
         return jsonify({
             'old_weight': weight_data_old,
             'new_weight': weight_data_new,
@@ -61,13 +67,16 @@ def get_weight_data():
 
 @app.route('/add_weight', methods=['GET', 'POST'])
 def add_weight():
+    logger.info('start add weight')
     form = WeightForm()
     if form.validate_on_submit():
         with SessionScope() as session:
             add_weight_data(request.form, session)
         return redirect(url_for('get_weight'))
     else:
+        logger.info('in else')
         form.date.data = date.today()
+        logger.info('return render template')
         return render_template('weight/add_weight.html', form=form, change='add')
 
 
